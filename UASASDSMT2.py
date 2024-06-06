@@ -1,35 +1,38 @@
 from prettytable import PrettyTable
+from colorama import Fore, Back, Style
 
 user = {}
 emoney = {}
 produk = {
-    "makanan": {"Big Mac": 50000, "McNuggets": 30000, "Tripler Burger With Cheese": 60000, "McChicken": 32000, "McNugget": 24000, "McSpidy": 33000},
-    "minuman": {"Coca Cola": 10000, "Fanta": 10000, "Sprite": 10000, "Fruit Tea": 12000},
-    "escream": {"Sundae": 15000, "McFlurry": 20000, "Cone": 7000},
-    "happy_meal": {"Hamburger Happy Meal": 35000, "4 Piece Chicken McNuggets Happy Meal": 30000, "6 Piece Chicken McNuggets Happy Meal": 35000}
+    "makanan": {"Big Mac🍔": 50000, "McNuggets🥐": 30000, "Tripler Burger With Cheese🍔": 60000, "McChicken🍗": 32000, "McSpicy🍗": 33000},
+    "minuman": {"Coca Cola🥤": 10000, "Fanta🍷": 10000, "Sprite🍸": 10000, "Fruit Tea🧃": 12000},
+    "escream": {"Sundae🍧": 15000, "McFlurry🍨": 20000, "Cone🍦": 7000},
+    "happy_meal": {"Hamburger Happy Meal🍔": 35000, "4 Piece Chicken McNuggets Happy Meal🥐": 30000, "6 Piece Chicken McNuggets Happy Meal🥠": 35000}
 }
 
 def menu_registrasi():
-    print("Silahkan Registrasi Sebelum Melakukan Login")
-
+    print(Style.BRIGHT +"Silahkan Registrasi Sebelum Melakukan Login 🙂" + Style.RESET_ALL)
     while True:
         nama = input("Masukkan Nama: ")
         if nama:
             break
         else:
-            print("Nama tidak boleh kosong. Silahkan masukkan nama.")
+            print(Fore.RED + Style.BRIGHT + "Nama tidak boleh kosong. Silahkan masukkan nama.😡")
+            print(Style.RESET_ALL)
     while True:
         password = input("Masukkan Password: ")
         if password:
             break
         else:
-            print("Password tidak boleh kosong. Silahkan masukkan password.")
+            print(Fore.RED + Style.BRIGHT + "Password tidak boleh kosong. Silahkan masukkan password.😡")
+            print(Style.RESET_ALL)
     while True:
         try:
             umur = int(input("Masukkan Umur: "))
             break
         except ValueError:
-            print("Inputan harus berupa angka. Silahkan masukkan umur yang valid.")
+            print(Fore.RED + Style.BRIGHT + "Inputan harus berupa angka. Silahkan masukkan umur yang valid.😡")
+            print(Style.RESET_ALL)
 
     print("Pilih Gender Pria/Wanita")
     print("1. Pria")
@@ -37,18 +40,20 @@ def menu_registrasi():
 
     while True:
         gender = input("Pilih Gender anda (1/2): ")
+        print(Style.RESET_ALL)
         if gender == "1" or gender == "2":
             gender = "Pria" if gender == "1" else "Wanita"
             break
         else:
-            print("Pilihan tidak valid. Silahkan pilih 1 untuk Pria atau 2 untuk Wanita.")
+            print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid. Silahkan pilih 1 untuk Pria atau 2 untuk Wanita.")
+            print(Style.RESET_ALL)
     
     user[nama] = {"password": password, "umur": umur, "gender": gender, "pesanan": [], "riwayat": []}
     emoney[nama] = 0 
-    print(f"Registrasi sukses, Silahkan Lanjut login{nama}!\n")
+    print(Fore.GREEN + Style.BRIGHT + f"Registrasi sukses, Silahkan Lanjut login {nama}!🤗\n")
 
 def menu_login():
-    print("Silahkan Login Jika Sudah Registrasi")
+    print(Style.BRIGHT + "Silahkan Login Jika Sudah Registrasi" + Style.RESET_ALL)
     nama = input("Masukkan Nama: ")
     password = input("Masukkan Password: ")
     if nama == "admin" and password == "admin123":
@@ -56,19 +61,20 @@ def menu_login():
     elif nama in user and user[nama]["password"] == password:
         current_user = user[nama]
         if current_user["umur"] < 10:
-            sapaan = "adek"
+            sapaan = "adek👼"
         elif current_user["gender"] == "Pria":
-            sapaan = "mas"
+            sapaan = "mas👨"
         else:
-            sapaan = "mbak"
-        print(f"Selamat datang, {sapaan} {nama}! Usia anda saat ini adalah {current_user['umur']} tahun!\n")
+            sapaan = "mbak👩"
+        print(Style.BRIGHT + f"Selamat datang🤗 {sapaan} {nama} ! Usia anda saat ini adalah {current_user['umur']} tahun!\n" + Style.RESET_ALL)
         menu_user(nama)
     else:
-        print("Login gagal, nama atau password salah.\n")
+        print(Fore.RED + Style.BRIGHT + "Login gagal, nama atau password salah.🤨🫵\n")
+        print(Style.RESET_ALL)
 
 def menu_user(nama):
     while True:
-        print("Silahkan Pilih Menu Opsi yang tersedia :")
+        print(Fore.CYAN + Style.BRIGHT + "\nSilahkan Pilih Menu Opsi yang tersedia😉👌"+ Style.RESET_ALL)
         print("1. Pesan Makanan")
         print("2. Pesan EsCream")
         print("3. Pesan Minum")
@@ -95,11 +101,12 @@ def menu_user(nama):
         elif pilihan == "8":
             break
         else:
-            print("Pilihan tidak valid, coba lagi.\n")
-
+            print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid, coba lagi.\n")
+            print(Style.RESET_ALL)
+            
 def menu_admin():
     while True:
-        print("Selamat Datang adminku!!!")
+        print(Fore.CYAN + Style.BRIGHT + "\nSelamat Datang adminku!!!" + Style.RESET_ALL)
         print("Menu Admin:")
         print("1. Tambah Menu")
         print("2. Hapus Menu")
@@ -121,10 +128,11 @@ def menu_admin():
         elif pilihan == "6":
             break
         else:
-            print("Pilihan tidak valid, coba lagi.\n")
-
+            print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid, coba lagi.\n")
+            print(Style.RESET_ALL)
+            
 def tambah_menu():
-    print("Tambah Menu:")
+    print(Style.BRIGHT + "Tambah Menu:" + Style.RESET_ALL)
     print("1. Makanan")
     print("2. Minuman")
     print("3. EsCream")
@@ -136,7 +144,8 @@ def tambah_menu():
     elif pilihan == "3":
         kategori = "escream"
     else:
-        print("Pilihan tidak valid.\n")
+        print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid. Coba Lagi\n")
+        print(Style.RESET_ALL)
         return
     nama = input("Masukkan nama produk: ")
     while True:
@@ -144,13 +153,13 @@ def tambah_menu():
             harga = int(input("Masukkan harga produk: Rp"))
             break
         except ValueError:
-            print("Inputan harus berupa angka. Silahkan masukkan harga yang valid.")
-    
+            print(Fore.RED + Style.BRIGHT + "Inputan harus berupa angka. Silahkan masukkan harga yang valid.")
+            print(Style.RESET_ALL)
     produk[kategori][nama] = harga
     print(f"{nama} berhasil ditambahkan ke menu {kategori}.\n")
 
 def hapus_menu():
-    print("Hapus Menu:")
+    print(Style.BRIGHT + "Hapus Menu:" + Style.RESET_ALL)
     print("1. Makanan")
     print("2. Minuman")
     print("3. EsCream")
@@ -162,7 +171,7 @@ def hapus_menu():
     elif pilihan == "3":
         kategori = "escream"
     else:
-        print("Pilihan tidak valid.\n")
+        print("Pilihan tidak valid. Coba Lagi\n")
         return
     tampilkan_produk(kategori)
     nama = input("Masukkan nama produk yang ingin dihapus: ")
@@ -170,10 +179,11 @@ def hapus_menu():
         del produk[kategori][nama]
         print(f"{nama} berhasil dihapus dari menu {kategori}.\n")
     else:
-        print(f"{nama} tidak ditemukan di menu {kategori}.\n")
-
+        print(Fore.RED + Style.BRIGHT + f"{nama} tidak ditemukan di menu {kategori}.\n")
+        print(Style.RESET_ALL)
+        
 def edit_menu():
-    print("Edit Menu:")
+    print(Style.BRIGHT + "Edit Menu:" + Style.RESET_ALL)
     print("1. Makanan")
     print("2. Minuman")
     print("3. EsCream")
@@ -185,7 +195,8 @@ def edit_menu():
     elif pilihan == "3":
         kategori = "escream"
     else:
-        print("Pilihan tidak valid. COba Lagi\n")
+        print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid. COba Lagi\n")
+        print(Style.RESET_ALL)
         return
     tampilkan_produk(kategori)
     nama = input("Masukkan nama produk yang ingin diedit: ")
@@ -199,8 +210,8 @@ def edit_menu():
         produk[kategori][nama] = harga_baru
         print(f"Harga {nama} berhasil diperbarui menjadi Rp{harga_baru}.\n")
     else:
-        print(f"{nama} tidak ditemukan di menu {kategori}.\n")
-
+        print(Fore.RED + Style.BRIGHT + f"{nama} tidak ditemukan di menu {kategori}.\n")
+        print(Style.RESET_ALL)
 def lihat_menu():
     print("Lihat Menu:")
     print("1. Makanan")
@@ -227,7 +238,7 @@ def lihat_pembelian_user():
             ada_pembelian = True
             for nama_produk, harga in data["riwayat"]:
                 table.add_row([nama, nama_produk, harga])
-    
+                
     if ada_pembelian:
         print(table)
         print("Pembelian user ditampilkan di atas.\n")
@@ -260,7 +271,8 @@ def pesan_makanan(nama):
                 user[nama]["pesanan"].append((pesanan, harga))
                 print(f"{pesanan} telah ditambahkan ke pesanan Anda.\n")
             except (ValueError, IndexError):
-                print("Produk tidak ditemukan, coba lagi.\n")
+                print(Fore.RED + Style.BRIGHT + "Produk tidak ditemukan, coba lagi.\n")
+                print(Style.RESET_ALL)
         elif pilihan == "2":
             print("Menu Makanan:")
             tampilkan_produk("makanan")
@@ -275,9 +287,11 @@ def pesan_makanan(nama):
                 user[nama]["pesanan"].append((pesanan, harga))
                 print(f"{pesanan} telah ditambahkan ke pesanan Anda.\n")
             except (ValueError, IndexError):
-                print("Produk tidak ditemukan, coba lagi.\n")
+                print(Fore.RED + Style.BRIGHT + "Produk tidak ditemukan, coba lagi.\n")
+                print(Style.RESET_ALL)
         else:
-            print("Pilihan tidak valid, coba lagi.\n")
+            print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid, coba lagi.\n")
+            print(Style.RESET_ALL)
     else:
         pesan(nama, "makanan")
 
@@ -295,11 +309,13 @@ def pesan(nama, kategori):
         user[nama]["pesanan"].append((pesanan, harga))
         print(f"{pesanan} telah ditambahkan ke pesanan Anda.\n")
     except (ValueError, IndexError):
-        print("Produk tidak ditemukan, coba lagi.\n")
+        print(Fore.RED + Style.BRIGHT + "Produk tidak ditemukan, coba lagi.\n")
+        print(Style.RESET_ALL)
 
 def lihat_checkout(nama):
     if not user[nama]["pesanan"]:
-        print("Anda belum memesan apapun.\n")
+        print(Fore.RED + Style.BRIGHT + "Anda belum memesan apapun.\n")
+        print(Style.RESET_ALL)
         return
     total_harga = sum([nama_produk[1] for nama_produk in user[nama]["pesanan"]])
     print("----- Checkout -----")
@@ -323,7 +339,7 @@ def bayar(nama):
     print(f"Total harga: Rp{total_harga}")
     print(f"Saldo eMoney: Rp{emoney[nama]}")
     if emoney[nama] < total_harga:
-        print("Saldo eMoney tidak cukup.\n")
+        print(Fore.RED + Style.BRIGHT + "Saldo eMoney tidak cukup.\n" + Style.RESET_ALL)
         print("1. Topup eMoney")
         print("2. Batalkan Pembelian")
         pilihan = input("Pilih opsi: ")
@@ -334,7 +350,7 @@ def bayar(nama):
             print("Pembelian dibatalkan.\n")
             return
     emoney[nama] -= total_harga
-    user[nama]["riwayat"].extend(user[nama]["pesanan"])  # Pindahkan pesanan ke riwayat
+    user[nama]["riwayat"].extend(user[nama]["pesanan"])
     print("Pembayaran berhasil.\n")
     cetak_invoice(nama, total_harga)
 
@@ -344,7 +360,8 @@ def topup_emoney(nama):
             jumlah = int(input("Masukkan jumlah topup: Rp"))
             break
         except ValueError:
-            print("Inputan harus berupa angka. Silahkan masukkan jumlah topup yang valid.")
+            print(Fore.RED + Style.BRIGHT + "Inputan harus berupa angka. Silahkan masukkan jumlah topup yang valid.")
+            print(Style.RESET_ALL)
     emoney[nama] += jumlah
     print(f"Topup berhasil. Saldo eMoney Anda sekarang: Rp{emoney[nama]}\n")
 
@@ -369,11 +386,12 @@ def cetak_invoice(nama, total_harga):
 
 def main():
     while True:
-        print("Selamat datang di McDonald's Online")
-        print("1. Registrasi")
-        print("2. Login")
-        print("3. Keluar")
+        print(Fore.YELLOW + Style.BRIGHT + "Selamat datang di McDonald's Online🍔🍟🍗" + Style.RESET_ALL)
+        print(Fore.YELLOW + "1. Registrasi📝")
+        print("2. Login🍴")
+        print("3. Keluar🚪")
         pilihan = input("Pilih menu: ")
+        print(Style.RESET_ALL)
         if pilihan == "1":
             menu_registrasi()
         elif pilihan == "2":
@@ -381,7 +399,8 @@ def main():
         elif pilihan == "3":
             break
         else:
-            print("Pilihan tidak valid, coba lagi.\n")
+            print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid, coba lagi.\n")
+            print(Style.RESET_ALL)
 
 if __name__ == "__main__":
     main()
