@@ -1,6 +1,6 @@
 from prettytable import PrettyTable
 from colorama import Fore, Back, Style
-
+import datetime
 
 user = {}
 emoney = {}
@@ -56,8 +56,6 @@ def menu_registrasi():
     else:
         sapaan = "mbak👩"
     print(Fore.GREEN + Style.BRIGHT + f"Registrasi sukses, Silahkan Lanjut login {sapaan} {nama}!🤗\n" + Style.RESET_ALL)
-
-
 
 def menu_login():
     print(Back.LIGHTCYAN_EX + Fore.WHITE + Style.BRIGHT + "+--------------------------------------------------+" + Style.RESET_ALL)
@@ -184,12 +182,15 @@ def tambah_menu():
             print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢." + Style.RESET_ALL)
     produk[kategori][nama] = harga
     print(f"{nama} berhasil ditambahkan ke menu {kategori}.\n")
+    tampilkan_produk(kategori)
+
 
 def hapus_menu():
     print(Fore.MAGENTA + Style.BRIGHT + "Hapus Menu:" + Style.RESET_ALL)
     print(Fore.MAGENTA + "1. Makanan")
     print("2. Minuman")
     print("3. EsCream")
+    
     try:
         pilihan = int(input("Pilih kategori: "))
         if pilihan == 1:
@@ -201,24 +202,33 @@ def hapus_menu():
         else:
             print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid❌. Coba Lagi\n" + Style.RESET_ALL)
             return
-        tampilkan_produk(kategori)
-        try:
-            index = int(input(Fore.MAGENTA + "Masukkan nomor produk yang ingin dihapus: ")) - 1
-            nama_produk = list(produk[kategori].keys())[index]
-            del produk[kategori][nama_produk]
-            print(Fore.GREEN + Style.BRIGHT + f"{nama_produk} berhasil dihapus dari menu {kategori}.\n")
-        except (ValueError, IndexError):
-            print(Fore.RED + Style.BRIGHT + "Nomor produk tidak Ada.\n" + Style.RESET_ALL)
-    except ValueError:
-        print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢." + Style.RESET_ALL)
-
-
         
+        if kategori in produk and len(produk[kategori]) > 0:
+            tampilkan_produk(kategori)
+            
+            try:
+                index = int(input(Fore.MAGENTA + "Masukkan nomor produk yang ingin dihapus: ")) - 1
+                if 0 <= index < len(produk[kategori]):
+                    nama_produk = list(produk[kategori].keys())[index]
+                    del produk[kategori][nama_produk]
+                    print(Fore.GREEN + Style.BRIGHT + f"{nama_produk} berhasil dihapus dari menu {kategori}.\n" + Style.RESET_ALL)
+                    tampilkan_produk(kategori)
+                else:
+                    print(Fore.RED + Style.BRIGHT + "Nomor produk tidak ada.\n" + Style.RESET_ALL)
+            except ValueError:
+                print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢.\n" + Style.RESET_ALL)
+        else:
+            print(Fore.RED + Style.BRIGHT + "Kategori produk kosong atau tidak ada.\n" + Style.RESET_ALL)
+    
+    except ValueError:
+        print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢.\n" + Style.RESET_ALL)
+
+
 def edit_menu():
     print(Style.BRIGHT + "Edit Menu:" + Style.RESET_ALL)
     print(Fore.MAGENTA + "1. Makanan")
     print("2. Minuman")
-    print("3. EsCream")
+    print("3. EsCream")   
     try:
         pilihan = int(input("Pilih kategori: "))
         if pilihan == 1:
@@ -229,25 +239,32 @@ def edit_menu():
             kategori = "escream"
         else:
             print(Fore.RED + Style.BRIGHT + "Pilihan tidak valid❌. Coba Lagi\n" + Style.RESET_ALL)
-            return
-        tampilkan_produk(kategori)
-        try:
-            index = int(input(Fore.MAGENTA + "Masukkan nomor produk yang ingin diedit: ")) - 1
-            nama_produk = list(produk[kategori].keys())[index]
-            while True:
-                try:
-                    harga_baru = int(input(Fore.MAGENTA + "Masukkan harga baru produk: Rp"))
-                    break
-                except ValueError:
-                    print(Fore.RED + Style.BRIGHT + "Inputan harus berupa angka🔢. Silahkan masukkan harga yang valid." + Style.RESET_ALL)
-            produk[kategori][nama_produk] = harga_baru
-            print(Fore.GREEN + Style.BRIGHT + f"Harga {nama_produk} berhasil diperbarui menjadi Rp{harga_baru}.\n")
-        except (ValueError, IndexError):
-            print(Fore.RED + Style.BRIGHT + "Nomor produk tidak Ada.\n" + Style.RESET_ALL)
+            return       
+        if kategori in produk and len(produk[kategori]) > 0:
+            tampilkan_produk(kategori)
+            try:
+                index = int(input(Fore.MAGENTA + "Masukkan nomor produk yang ingin diedit: ")) - 1
+                if 0 <= index < len(produk[kategori]):
+                    nama_produk = list(produk[kategori].keys())[index]
+                    
+                    while True:
+                        try:
+                            harga_baru = int(input(Fore.MAGENTA + "Masukkan harga baru produk: Rp"))
+                            break
+                        except ValueError:
+                            print(Fore.RED + Style.BRIGHT + "Inputan harus berupa angka🔢. Silahkan masukkan harga yang valid." + Style.RESET_ALL)                  
+                    produk[kategori][nama_produk] = harga_baru
+                    print(Fore.GREEN + Style.BRIGHT + f"Harga {nama_produk} berhasil diperbarui menjadi Rp{harga_baru}.\n" + Style.RESET_ALL)
+                    tampilkan_produk(kategori)
+                else:
+                    print(Fore.RED + Style.BRIGHT + "Nomor produk tidak ada.\n" + Style.RESET_ALL)
+            except ValueError:
+                print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢.\n" + Style.RESET_ALL)
+        else:
+            print(Fore.RED + Style.BRIGHT + "Kategori produk kosong atau tidak ada.\n" + Style.RESET_ALL)
     except ValueError:
-        print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢." + Style.RESET_ALL)
+        print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢.\n" + Style.RESET_ALL)
 
-        
 def lihat_menu():
     print("Lihat Menu:")
     print("1. Makanan")
@@ -271,8 +288,8 @@ def lihat_menu():
 
 
 def lihat_pembelian_user():
-    print("Lihat Pembelian User")
-    table = PrettyTable([Fore.YELLOW + Style.BRIGHT + "Nama User", "nama produk", "Harga"])
+    print(Fore.MAGENTA + Style.BRIGHT + "Lihat Pembelian User")
+    table = PrettyTable([ "Nama User", "nama produk", "Harga"])
     ada_pembelian = False
     for nama, data in user.items():
         if "riwayat" in data and data["riwayat"]:
@@ -423,24 +440,35 @@ def cek_saldo(nama):
     print(Fore.CYAN + Style.BRIGHT + f"Saldo eMoney Anda: Rp.{emoney[nama]}\n" + Style.RESET_ALL)
 
 def cetak_invoice(nama, total_harga):
+    print(Fore.YELLOW + Style.BRIGHT)
     current_user = user[nama]
     pesanan = current_user.get("pesanan", [])
-    print(Style.BRIGHT + "----- Invoice -----")
-    print(f"Nama: {nama}")
-    print(f"Gender: {current_user['gender']}")
-    print(f"Usia: {current_user['umur']} tahun")
-    print("Pesanan:")
-    table = PrettyTable([Fore.YELLOW + Style.BRIGHT +"Nama Produk", "Harga"])
+    table = PrettyTable(["Nama Produk", "Harga"])
     for nama_produk, harga in pesanan:
         table.add_row([nama_produk, harga])
     print(table)
-    print(f"Total harga: Rp{total_harga}")
-    print("-------------------")
+    print(Style.BRIGHT + "=============================================")
+    print(f"Total harga : Rp{total_harga}")
+    print(f"Saldo sisa  : Rp.{emoney[nama]}")
     user[nama]["pesanan"] = []
+    print(Style.BRIGHT + "=============================================")
+    print(f"Nama        : {nama}")
+    print(f"Gender      : {current_user['gender']}                         ")
+    print(f"Usia        : {current_user['umur']} tahun")
+    print(f"Waktu       : {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print("=============================================")
     print(Style.RESET_ALL)
 
 def main():
     while True:
+        now = datetime.datetime.now()
+        if now.hour < 9 or now.hour >= 23:
+            print(Fore.LIGHTRED_EX + Style.BRIGHT + "+------------------------------------------------------------------------+")
+            print("|          Mohon Maaf Kami Hanya Buka Pada Jam 09:00🕘 Dan 23:00🕚       |")
+            print("|                            Harap Menunggu 😙                           |")
+            print("+------------------------------------------------------------------------+" + Style.RESET_ALL)
+            break
+        
         print(Fore.YELLOW + Style.BRIGHT + "+-----------------------------------------+")
         print("|Selamat datang di McDonald's Online🍔🍟🍗|")
         print("|-----------------------------------------|")
@@ -448,7 +476,7 @@ def main():
         print("|              2. Login🍴                 |")
         print("|              3. Keluar🚪                |")
         print("|-----------------------------------------|")
-        print("|            Contact Us = 14045           |")
+        print("|          Contact Us = 📞 14045          |")
         print("+-----------------------------------------+" + Style.RESET_ALL)
         try:
             pilihan = int(input(Fore.YELLOW + "Pilih menu: "))
@@ -469,6 +497,7 @@ def main():
         except ValueError:
             print(Back.RED + Fore.BLACK + Style.BRIGHT + "Harus Input Angka🔢." + Style.RESET_ALL)
             print(Style.RESET_ALL)
+
 
 if __name__ == "__main__":
     main()
