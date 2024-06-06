@@ -14,6 +14,11 @@ Menu Main
 
 
 Menu Register
+
+
+
+
+
  ![UASASDSMT2-Menu Register](https://github.com/ikmalalo/UASASDSMT2/assets/100822093/0db4fa0f-f73d-4a0f-b674-b7d963b56944)
 
 
@@ -23,6 +28,13 @@ Menu Register
 
 
 Menu Login
+
+
+
+
+
+
+
  ![UASASDSMT2-Menu Login](https://github.com/ikmalalo/UASASDSMT2/assets/100822093/dfbdfe9a-cae2-4783-9f34-dc5101d2ae2d)
 
 
@@ -31,7 +43,14 @@ Menu Login
 
 
 
+
 Menu User
+
+
+
+
+
+
  ![UASASDSMT2-Menu User](https://github.com/ikmalalo/UASASDSMT2/assets/100822093/f9e7b969-fe71-4cc0-877b-4123e92c1c76)
 
 
@@ -42,4 +61,11 @@ Menu User
 
 
 Menu Admin
+
+
+
+
+
+
+
  ![UASASDSMT2-Menu Admin](https://github.com/ikmalalo/UASASDSMT2/assets/100822093/683389f4-1834-47ec-93bc-95ed581f44f5)
