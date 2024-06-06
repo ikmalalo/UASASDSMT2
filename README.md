@@ -11,7 +11,8 @@ Menu Main
 
 
 Menu Register
-![UASASDSMT2-Menu Register](https://github.com/ikmalalo/UASASDSMT2/assets/100822093/6015ebe4-d1be-4de7-8820-9c7aac5c9f8d)
+![UASASDSMT2-Menu Register](https://github.com/ikmalalo/UASASDSMT2/assets/100822093/0db4fa0f-f73d-4a0f-b674-b7d963b56944)
+
 
 
 
